@@ -1,0 +1,19 @@
+{
+  "name": "icgccampus",
+  "version": "1.0.0",
+  "description": "icgc church management",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mishrule/icgccampus.git"
+  },
+  "author": "Ernest Kyei Nkrumah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mishrule/icgccampus/issues"
+  },
+  "homepage": "https://github.com/Mishrule/icgccampus#readme"
+}
