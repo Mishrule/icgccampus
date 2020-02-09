@@ -11,7 +11,7 @@
           </div>
           <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
           <ul class="list-unstyled">
-                    <li class="active"><a href="dashboard.php"> <i class="icon-home"></i>Home </a></li>
+                    <li><a href="dashboard.php"> <i class="icon-home"></i>Home </a></li>
                     <li><a href="register_members.php"> <i class="icon-grid"></i>Members </a></li>
                     <li><a href="tithe.php"> <i class="fa fa-bar-chart"></i>Tithe </a></li>
                     <li><a href="attendance.php"> <i class="icon-padnote"></i>Attendance </a></li>
