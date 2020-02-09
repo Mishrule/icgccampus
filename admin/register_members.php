@@ -1,7 +1,6 @@
 <?php 
-// include('php_script/databaseConfig.php');
-// include('php_script/session.php');
-/*
+    require_once('db.php');
+
 $msg = '';
 date_default_timezone_set("Africa/Accra");
 $currentTime = time();
@@ -19,9 +18,9 @@ if (isset($_POST['registerBtn'])) {
 
 
   $image = $_FILES["imageFile"]["name"];
-  $target = "upload/" . basename($_FILES["imageFile"]["name"]);
+  $target = "img/" . basename($_FILES["imageFile"]["name"]);
 
-  $registerSQL = "INSERT INTO icgcmembers VALUES('$memberid','$fullname','$gender','$program','$level','$hall','$contact','$email','$image','$dateTime')";
+  $registerSQL = "INSERT INTO icgcmembers VALUES('','$memberid','$fullname','$gender','$program','$level','$hall','$contact','$email','$image','$dateTime')";
   $registerResult = mysqli_query($conn, $registerSQL);
   move_uploaded_file($_FILES["imageFile"]["tmp_name"], $target);
   if ($registerResult) {
@@ -43,7 +42,7 @@ if (isset($_POST['registerBtn'])) {
 
 
 
-}*/
+}
 
 ?>
 <!DOCTYPE html>
@@ -94,10 +93,10 @@ if (isset($_POST['registerBtn'])) {
                                     <div align="center"><?php echo $msg; ?></div>
                                     <div class="card-body">
                                         <div class="row">
-                                            <form method="POST" onsubmit="return validateForm()"
-                                                action="<?php $_PHP_SELF ?>" enctype="multipart/form-data">
+                                            <form method="POST" action="<?php $_PHP_SELF; ?>"
+                                                enctype="multipart/form-data">
                                                 <label class="col-sm-3 form-control-label">Create a Member</label>
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-12">
                                                     <div class="form-group-material">
                                                         <input id="register-MemberID" type="text"
                                                             name="registerMemberID" required class="input-material">
@@ -202,7 +201,48 @@ if (isset($_POST['registerBtn'])) {
                                                     <option value="10000">All</option>
                                                 </select>
                                             </div>
-                                            <div id="display"></div>
+
+                                            <table class="table table-striped table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Member ID</th>
+                                                        <th>Full Name</th>
+                                                        <th>Level</th>
+                                                        <th>Edit</th>
+                                                        <th>Delete</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php 
+                                                        
+                                                        $registeredMembersSQL = "SELECT * FROM icgcmembers ORDER BY date_time DESC LIMIT 10";
+                                                        $registeredExecution = mysqli_query($conn, $registeredMembersSQL);
+                                                        $registerCount = 1;
+                                                        if(mysqli_num_rows($registeredExecution)>0){
+                                                            while($registeredRow = mysqli_fetch_array($registeredExecution)){
+                                                            echo '
+                                                                <tr>
+                                                                    <th scope="row">'.$registerCount++.'</th>
+                                                                    <td>'.$registeredRow['member_id'].'</td>
+                                                                    <td>'.$registeredRow['fullname'].'</td>
+                                                                    <td>'.$registeredRow['level'].'</td>
+                                                                    <td><a href="#" class="btn btn-primary btn-sm" name="'.$registeredRow['id'].'">Edit</a></td>
+                                                                    <td><a href="#" class="btn btn-danger btn-sm" name="'.$registeredRow['id'].'">Delete</a></td>
+                                                                </tr>
+                                                            ';
+                                                        }
+                                                        }else{
+                                                            echo "Sorry No Member is Registered";
+                                                        }
+
+                                                        
+                                                    ?>
+
+                                                </tbody>
+                                            </table>
+
+
 
                                         </div>
                                     </div>
@@ -226,23 +266,50 @@ if (isset($_POST['registerBtn'])) {
                                         <h3 class="h4">Search for Member</h3>
                                     </div>
                                     <div class="card-body">
-                                        <div align="center">
+                                        <form align="center" method="post" action="<?php $_PHP_SELF;?>">
                                             <div class="form-group-material">
                                                 <input id="searchText" type="text" name="searchText" required
                                                     class="input-material">
                                                 <label for="search" class="label-material"><i
                                                         class="fa fa-search"></i>Search Members</label>
                                                 <div><br />
-                                                    <button type="button" id="searchBtn" name="searchBtn" value="search"
+                                                    <button type="submit" id="searchBtn" name="searchBtn"
                                                         class="btn btn-info btn-sm"><i
                                                             class="fa fa-search"></i>Search</button>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </form>
                                         <div class="table-responsive">
+                                            <?php 
+                                                if(isset($_POST['searchBtn'])){
+                                                    $search = mysqli_real_escape_string($conn, $_POST['searchBtn']);
+                                                    $searchSQL = "SELECT * FROM icgcmembers WHERE member_id='$search' OR fullname = '$search' OR contact='$search'";
+                                                    
+                                                    $searchResult = mysqli_query($conn, $searchSQL);
+                                                    if(mysqli_num_rows($searchResult)>0){
+                                                        while($searchRow = mysqli_fetch_array($searchResult)){
+                                                            echo '
+                                                                <div align="center">
+                                                                    <img class="img-thumbnail" src="img/'.$searchRow['image'].'" width="200px" height="200px;" /><br>
+                                                                    <h1>'.$searchRow['fullname'].'</h1><hr>
+                                                                    <h2>'.$searchRow['member_id'].'</h2><hr>
+                                                                      <h3>'.$searchRow['contact'].'</h3><hr>
+                                                                       <h3>'.$searchRow['hall'].'</h3><hr>
+                                                                        <h3>'.$searchRow['email'].'</h3><hr>
+                                                                         <h3>'.$searchRow['date_time'].'</h3><hr>
+                                                                </div>
+                                                            ';
+                                                        }
+                                                    }else{
+                                                        echo '
+                                                            <hr>
+                                                                <marquee>NO STUDENT RECORD FOUND</marquee>
+                                                            <hr>
+                                                        ';
+                                                    }
 
-                                            <div id="searchDisplay"></div>
-
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -278,6 +345,50 @@ if (isset($_POST['registerBtn'])) {
                                                     <option value="10000">All</option>
                                                 </select>
                                             </div>
+                                            <table class="table table-striped table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Member ID</th>
+                                                        <th>Full Name</th>
+                                                        <th>Level</th>
+                                                        <th>Edit</th>
+                                                        <th>Delete</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php 
+                                                        
+                                                        $alumniMembersSQL = "SELECT * FROM icgcmembers WHERE level='alumni' ORDER BY date_time DESC LIMIT 10";
+                                                        $alumniExecution = mysqli_query($conn, $alumniMembersSQL);
+                                                        $registerCount = 1;
+                                                        if(mysqli_num_rows($alumniExecution)>0){
+                                                            while($alumniRow = mysqli_fetch_array($alumniExecution)){
+                                                            echo '
+                                                                <tr>
+                                                                    <th scope="row">'.$registerCount++.'</th>
+                                                                    <td>'.$alumniRow['member_id'].'</td>
+                                                                    <td>'.$alumniRow['fullname'].'</td>
+                                                                    <td>'.$alumniRow['level'].'</td>
+                                                                    <td><a href="#" class="btn btn-primary btn-sm" name="'.$alumniRow['id'].'">Edit</a></td>
+                                                                    <td><a href="#" class="btn btn-danger btn-sm" name="'.$alumniRow['id'].'">Delete</a></td>
+                                                                </tr>
+                                                            ';
+                                                        }
+                                                        }else{
+                                                            
+                                                            echo '
+                                                                <tr>
+                                                                    <td colspan="6"><marquee>SORRY NO MEMBER IS ALUMNI</marquee></td>
+                                                                </tr>
+                                                            ';
+                                                        }
+
+                                                        
+                                                    ?>
+
+                                                </tbody>
+                                            </table>
                                             <div id="alumnidisplay"></div>
                                             <!--<table class="table table-striped table-sm">
                           <thead>

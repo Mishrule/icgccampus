@@ -4,10 +4,10 @@
     $username = 'root';
     $password = '';
     $dbName = 'icgccampus';
-    $con = mysqli_connect($host, $username, $password, $dbName);
-    if($con){
+    $conn = mysqli_connect($host, $username, $password, $dbName);
+    if($conn){
         
     }else{
-        echo mysqli_error($con).$connectionError;
+        echo mysqli_error($conn).$connectionError;
     }
 ?>
