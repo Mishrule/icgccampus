@@ -1,7 +1,7 @@
 <?php
     echo '
         <head>
-            <title>Inward Church Website Template</title>
+            <title>ICGC | UEW-K</title>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 

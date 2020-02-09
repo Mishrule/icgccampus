@@ -3,7 +3,7 @@
          <header role="banner">
             <nav class="navbar navbar-expand-md navbar-dark bg-dark">
                 <div class="container">
-                <a class="navbar-brand absolute" href="../index.php">Inward</a>
+                <a class="navbar-brand absolute" href="../index.php">ICGC | UEW-K</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>

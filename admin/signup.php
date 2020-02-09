@@ -1,9 +1,52 @@
+<?php 
+include('php_script/databaseConfig.php');
+include('php_script/passwordScript.php');
+include('php_script/session.php');
+
+$msg = '';
+date_default_timezone_set("Africa/Accra");
+$currentTime = time();
+$dateTime = strftime("%B-%d-%Y %H:%M:%S", $currentTime);
+
+
+
+
+
+if (isset($_POST['login'])) {
+  $login_user = mysqli_real_escape_string($conn, $_POST['login_user']);
+  $login_password = mysqli_real_escape_string($conn, $_POST['login_password']);
+  $login_as = mysqli_real_escape_string($conn, $_POST['login_as']);
+  $enPassword = encryptIt($login_password);
+
+  $login_SQL = "INSERT INTO users VALUES('','$login_user','$login_as','$enPassword','$dateTime')";
+  $login_Result = mysqli_query($conn, $login_SQL);
+  if ($login_Result) {
+
+    $msg = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>You have successfully registered ' . $login_user . ' </strong>
+                  <button type="button" class="close"  data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>';
+  } else {
+    $msg = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Username already exist...</strong>
+                  <button type="button" class="close"  data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>';
+  }
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bootstrap Material Admin by Bootstrapious.com</title>
+    <title>ICGC Campus Ministry : Sign up</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="all,follow">
@@ -20,7 +63,7 @@
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="css/custom.css">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="img/fav.png">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -41,16 +84,16 @@
             <div class="navbar-holder d-flex align-items-center justify-content-between">
               <!-- Navbar Header-->
               <div class="navbar-header">
-                <!-- Navbar Brand --><a href="index.html" class="navbar-brand d-none d-sm-inline-block">
-                  <div class="brand-text d-none d-lg-inline-block"><span>Bootstrap </span><strong>Dashboard</strong></div>
-                  <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div></a>
+                <!-- Navbar Brand --><a href="dashboard.php" class="navbar-brand d-none d-sm-inline-block">
+                  <div class="brand-text d-none d-lg-inline-block"><span><img src="img/logo.jpg" width="60" style="border-radius: 50px;" alt="ICGC"> </span><strong>&nbsp;&nbsp; ICGC Campus Ministry </strong></div>
+                  <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>ICGC</strong></div></a>
                 <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
               </div>
               <!-- Navbar Menu -->
               <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                 <!-- Search-->
                 <li class="nav-item d-flex align-items-center"><a id="search" href="#"><i class="icon-search"></i></a></li>
-                <!-- Notifications-->
+                <!-- Notifications
                 <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell-o"></i><span class="badge bg-red badge-corner">12</span></a>
                   <ul aria-labelledby="notifications" class="dropdown-menu">
                     <li><a rel="nofollow" href="#" class="dropdown-item"> 
@@ -75,8 +118,8 @@
                         </div></a></li>
                     <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong>view all notifications                                            </strong></a></li>
                   </ul>
-                </li>
-                <!-- Messages                        -->
+                </li>-->
+                <!-- Messages 
                 <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope-o"></i><span class="badge bg-orange badge-corner">10</span></a>
                   <ul aria-labelledby="notifications" class="dropdown-menu">
                     <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
@@ -96,16 +139,16 @@
                         </div></a></li>
                     <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong>Read all messages   </strong></a></li>
                   </ul>
-                </li>
-                <!-- Languages dropdown    -->
+                </li>-->
+                <!-- Languages dropdown  
                 <li class="nav-item dropdown"><a id="languages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link language dropdown-toggle"><img src="img/flags/16/GB.png" alt="English"><span class="d-none d-sm-inline-block">English</span></a>
                   <ul aria-labelledby="languages" class="dropdown-menu">
                     <li><a rel="nofollow" href="#" class="dropdown-item"> <img src="img/flags/16/DE.png" alt="English" class="mr-2">German</a></li>
                     <li><a rel="nofollow" href="#" class="dropdown-item"> <img src="img/flags/16/FR.png" alt="English" class="mr-2">French                                         </a></li>
                   </ul>
-                </li>
+                </li> -->
                 <!-- Logout    -->
-                <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i class="fa fa-sign-out"></i></a></li>
+                <li class="nav-item"><a href="php_script/logout.php" class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i class="fa fa-sign-out"></i></a></li>
               </ul>
             </div>
           </div>
@@ -116,46 +159,46 @@
         <nav class="side-navbar">
           <!-- Sidebar Header-->
           <div class="sidebar-header d-flex align-items-center">
-            <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+            <!-- <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div> -->
             <div class="title">
-              <h1 class="h4">Mark Stephen</h1>
-              <p>Web Designer</p>
+              <h1 class="h4">Welcome: <?php echo $login_session; ?></h1>
+              <!--<p>Web Designer</p>-->
             </div>
           </div>
           <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
           <ul class="list-unstyled">
-                    <li><a href="index.html"> <i class="icon-home"></i>Home </a></li>
-                    <li class="active"><a href="tables.html"> <i class="icon-grid"></i>Tables </a></li>
-                    <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>Charts </a></li>
-                    <li><a href="forms.html"> <i class="icon-padnote"></i>Forms </a></li>
-                    <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Example dropdown </a>
+                    <li><a href="dashboard.php"> <i class="icon-home"></i>Home </a></li>
+                    <li><a href="register_members.php"> <i class="fa fa-fa-user"></i>Members</a></li>
+                    <li><a href="tithe.php"> <i class="fa fa-bar-chart"></i>Tithe</a></li>
+                    <li><a href="attendance.php"> <i class="icon-padnote"></i>Attendance </a></li>
+                    <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Offering </a>
                       <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                        <li><a href="#">Page</a></li>
-                        <li><a href="#">Page</a></li>
-                        <li><a href="#">Page</a></li>
+                        <li><a href="offering.php">Offering</a></li>
+                        <li><a href="pledges.php">Pledges</a></li>
+                        <!--<li><a href="#">Page</a></li>-->
                       </ul>
                     </li>
-                    <li><a href="login.html"> <i class="icon-interface-windows"></i>Login page </a></li>
-          </ul><span class="heading">Extras</span>
+                    <!--<li><a href="login.html"> <i class="icon-interface-windows"></i>Login page </a></li>-->
+          </ul><span class="heading">Visitors</span>
           <ul class="list-unstyled">
-            <li> <a href="#"> <i class="icon-flask"></i>Demo </a></li>
-            <li> <a href="#"> <i class="icon-screen"></i>Demo </a></li>
+            <li> <a href="visitors.php"> <i class="icon-flask"></i>Visitor </a></li>
+            <!--<li> <a href="#"> <i class="icon-screen"></i>Demo </a></li>
             <li> <a href="#"> <i class="icon-mail"></i>Demo </a></li>
-            <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>
+            <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>-->
           </ul>
         </nav>
         <div class="content-inner">
           <!-- Page Header-->
           <header class="page-header">
             <div class="container-fluid">
-              <h2 class="no-margin-bottom">Tables</h2>
+              <h2 class="no-margin-bottom">Sign up Page</h2>
             </div>
           </header>
           <!-- Breadcrumb-->
           <div class="breadcrumb-holder container-fluid">
             <ul class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item active">Tables            </li>
+              <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+              <li class="breadcrumb-item active">Sign up Page </li>
             </ul>
           </div>
           <section class="tables">   
@@ -170,41 +213,38 @@
                       </div>
                     </div>
                     <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">Basic Table</h3>
+                      <h3 class="h4">Create User</h3>
                     </div>
+                  
                     <div class="card-body">
-                      <div class="table-responsive">
-                        <table class="table">
-                          <thead>
-                            <tr>
-                              <th>#</th>
-                              <th>First Name</th>
-                              <th>Last Name</th>
-                              <th>Username</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <th scope="row">1</th>
-                              <td>Mark</td>
-                              <td>Otto</td>
-                              <td>@mdo</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">2</th>
-                              <td>Jacob</td>
-                              <td>Thornton</td>
-                              <td>@fat</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">3</th>
-                              <td>Larry</td>
-                              <td>the Bird</td>
-                              <td>@twitter</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
+                      <div align="center"><?php echo $msg; ?></div>
+                      <form method="post" class="form-validate">
+                        <div class="form-group">
+                          <label for="login_user">User Name</label>
+                          <input id="login_user" type="text" name="login_user" required data-msg="Please enter your username" class="form-control">
+                          
+                        </div>
+                        <div class="form-group">
+                          <label for="login_password">Password</label>
+                          <input id="login_password" type="password" name="login_password" required data-msg="Please enter your password" class="form-control">
+                          
+                        </div>
+                        <div class="form-group">
+                          <label for="login_as">Login As</label>
+                          <select class="form-group-material custom-select my-1 mr-sm-2" id="login_as" name="login_as">
+                            <option value="Finance">Finance</option>
+                            <option value="President">President</option>
+                            <option value="Vice">Vice</option>
+                            <option value="Admin">Administrator</option>
+                            
+                          </select>
+                        </div>
+                        <button type="submit" id="login" name="login" value="login" class="btn btn-primary btn-sm">Register</button>
+                        
+                        <button type="reset" id="login_reset" style="float:right" name="login_reset" value="login_reset" class="btn btn-danger btn-sm">Reset Fields</button>
+                        <!-- This should be submit button but I replaced it with <a> for demo purposes-->
+                      </form>
+
                     </div>
                   </div>
                 </div>
@@ -217,45 +257,55 @@
                       </div>
                     </div>
                     <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">Striped Table</h3>
+                      <h3 class="h4">Users</h3>
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">  
-                        <table class="table table-striped">
+                        <div id="showUsers"></div>
+                        <!--<table class="table table-striped">
                           <thead>
                             <tr>
                               <th>#</th>
-                              <th>First Name</th>
-                              <th>Last Name</th>
                               <th>Username</th>
+                              <th>Password</th>
+                              <th>Login as</th>  
+                              <th>Controls</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <th scope="row">1</th>
-                              <td>Mark</td>
-                              <td>Otto</td>
-                              <td>@mdo</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">2</th>
-                              <td>Jacob</td>
-                              <td>Thornton</td>
-                              <td>@fat</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">3</th>
-                              <td>Larry</td>
-                              <td>the Bird</td>
-                              <td>@twitter                            </td>
-                            </tr>
+                            <? php/*
+                            $show_display = '';
+                            $show_login_sql = "SELECT * FROM users ORDER BY regDate DESC";
+                            $show_login_result = mysqli_query($conn, $show_login_sql);
+
+                            $count = 1;
+                            if (mysqli_num_rows($show_login_result) > 0) {
+                              while ($show_login_row = mysqli_fetch_array($show_login_result)) {
+                                $show_display .= '
+                                  <tr>
+                                    <th scope="row">' . $count . '</th>
+                                    <td>' . $show_login_row['username'] . '</td>
+                                    <td>' . $show_login_row['password'] . '</td>
+                                    <td>' . $show_login_row['login_as'] . '</td> 
+                                     <td>
+                                        <button type="button" id="' . $show_login_row["userid"] . '" class="delete btn btn-danger btn-sm" >Delete</button> | 
+                                        <button type="button" id="' . $show_login_row["userid"] . '" class="update btn btn-primary btn-sm" data-toggle="modal" data-target="#myUpdateModal">Update</button>
+                                     </td>
+                                  </tr>
+                                ';
+                                $count++;
+                              }
+                            } */
+                            ?>
+                            <?php // echo $show_display; ?>
+                            
                           </tbody>
-                        </table>
+                        </table>-->
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-6">
+              <!--  <div class="col-lg-6">
                   <div class="card">
                     <div class="card-close">
                       <div class="dropdown">
@@ -264,7 +314,7 @@
                       </div>
                     </div>
                     <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">Striped table with hover effect</h3>
+                      <h3 class="h4">Search for Member</h3>
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">                       
@@ -311,7 +361,7 @@
                       </div>
                     </div>
                     <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">Compact Table</h3>
+                      <h3 class="h4">Alumni Members</h3>
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">   
@@ -366,7 +416,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
           </section>
@@ -375,10 +425,10 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-sm-6">
-                  <p>Your company &copy; 2017-2019</p>
+                  <p>Right Protected &copy; 2018 | ICGC UEW-K</p>
                 </div>
                 <div class="col-sm-6 text-right">
-                  <p>Design by <a href="https://bootstrapious.com/admin-templates" class="external">Bootstrapious</a></p>
+                  <p>Design by <a href="#" class="external">Mish Rule | +233245181940</a></p>
                   <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
                 </div>
               </div>
@@ -398,3 +448,128 @@
     <script src="js/front.js"></script>
   </body>
 </html>
+
+<script>
+  $(document).ready(function(){
+    DisplayUsers();
+    function DisplayUsers(){
+      var display = 'action';
+
+       $.ajax({
+        url:'php_script/signupScript.php',
+        method:'POST',
+        data:{display:display},
+        success:function(data){
+          $('#showUsers').html(data);
+        }
+      });
+    }
+
+//=======================================| SET UPDATE FIELDS |===============================
+
+    $(document).on('click', '.update', function(){
+      var id= $(this).attr("id");
+      
+      $.ajax({
+        url:'php_script/signupScript.php',
+        method:'POST',
+        data:{id:id},
+        dataType:'json',
+        success:function(data){
+          $('#hidden_user').val(data.user_id);
+          $('#update_user').val(data.user_name);
+          $('#update_password').val(data.pass_word);
+          $('#update_as').val(data.login_as);
+          //alert(data);
+        }
+      });
+    });
+
+
+//=======================================| DELETE FIELD |===============================
+
+    $(document).on('click', '.delete', function(){
+      var delete_id= $(this).attr("id");
+      if(confirm("Are you sure you want to delete User")){
+        $.ajax({
+        url:'php_script/signupScript.php',
+        method:'POST',
+        data:{delete_id:delete_id},
+        success:function(data){
+           alert(data);
+           DisplayUsers();
+        }
+      });
+      }else{
+        alert("Delete Cancelled");
+      }
+      
+    });
+//========================================| UPDATE BUTTON |=========================================
+    $('#btnUpdate').click(function(){
+      var hidden_user = $('#hidden_user').val();
+      var update_user = $('#update_user').val();
+      var update_password = $('#update_password').val();
+      var update_as = $('#update_as').val();
+      var btnUpdate = $('#btnUpdate').val();
+
+        $.ajax({
+        url:'php_script/signupScript.php',
+        method:'POST',
+        data:{hidden_user:hidden_user, update_user:update_user, update_password:update_password, update_as:update_as, btnUpdate:btnUpdate},
+        success:function(data){
+          $('#user_modal').html(data);
+          setTimeout(() => {
+              $('#myUpdateModal').modal('hide');
+                 DisplayUsers();
+          }, 3000);
+
+        }
+      });
+
+    });
+  });
+</script>
+<!-- Modal-->
+  <div id="myUpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+    <div role="document" class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="exampleModalLabel" class="modal-title">User Update</h4>
+          <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+          </div>
+          <div class="modal-body">
+            <div id="user_modal"></div>
+            <form>
+            <input id="hidden_user" type="hidden" name="hidden_user" class="form-control">
+            
+            <div class="form-group">
+            <!--  <label for="update_user">User Name</label>-->
+              <input id="update_user" type="text" name="update_user" class="form-control">
+                          
+              </div>
+              <div class="form-group">
+          <!--    <label for="update_password">Password</label>-->
+              <input id="update_password" type="text" name="update_password" class="form-control">
+                          
+            </div>
+
+            <div class="form-group">
+           <!--   <label for="update_as">Login As</label> -->
+              <select class="form-group-material custom-select my-1 mr-sm-2" id="update_as" name="update_as">
+                <option value="Finance">Finance</option>
+                <option value="President">President</option>
+                <option value="Vice">Vice</option>
+                <option value="Admin">Administrator</option>          
+              </select>
+            </div>
+            </form>
+           <div class="modal-footer">
+             <button type="button" id="btnClose" name="btnClose" data-dismiss="modal" class="btn btn-secondary">Close</button>
+             <button type="button" id="btnUpdate" name="btnUpdate" class="btn btn-primary" value="update">Save changes</button>
+           </div>
+           </div>
+         </div>
+       </div>
+</div>
+

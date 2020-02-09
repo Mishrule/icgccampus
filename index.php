@@ -13,9 +13,41 @@
             <div class="container">
                 <div class="row slider-text align-items-center justify-content-center">
                     <div class="col-md-8 text-center col-sm-12 element-animate">
-                        <h1>Welcome to Inward</h1>
-                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi unde impedit,
-                            necessitatibus, soluta sit quam minima expedita atque corrupti reiciendis.</p>
+                        <h1>Welcome to Internation Central Gospel Church - UEWK</h1>
+                        <p class="mb-5"></p>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h3 style="color:brown;">Philosophy</h3>
+                                <p>
+                                    Practical Christianity<br>
+                                    Human Dignity<br>
+                                    Excellence<br>
+                                    <marquee>We believe Christianity is not a myth. God’s word preached must bring
+                                        truths that
+                                        can produce results when applied to one’s life. Every human being is created in
+                                        the
+                                        image and likeness of God and must be treated with respect and honor. Also,
+                                        everything the Christian or the human being will do must be in excellent shape
+                                        to
+                                        the glory of God. (Daniel 5:12)</marquee>
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <h3 style="color:brown;">Mission Statement</h3>
+                                <p>
+                                    Raising Leaders<br>
+                                    Shaping Vision<br>
+                                    Influencing Society through Christ
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <h3 style="color:brown;">VISION:</h3>
+                                <p>
+                                    To establish the house of God through the development of Model New Testament
+                                    Christians and churches.
+                                </p>
+                            </div>
+                        </div>
                         <p><a href="#" class="btn btn-white btn-outline-white">Request a prayer</a></p>
                     </div>
                 </div>

@@ -15,9 +15,29 @@
                 <div class="row slider-text align-items-center justify-content-center">
                     <div class="col-md-8 text-center col-sm-12 element-animate">
                         <h1>About Us</h1>
-                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi unde impedit,
-                            necessitatibus, soluta sit quam minima expedita atque corrupti reiciendis.</p>
-                        <p><a href="#" class="btn btn-white btn-outline-white">Connect With us</a></p>
+                        <p class="mb-5">
+
+                            <b>PHILOSOPHY:</b>
+                            Practical Christianity
+                            Human Dignity
+                            Excellence <br><br>
+
+                            <b>MISSION STATEMENT
+                                MISSION:</b><br>
+
+                            Raising Leaders
+                            Shaping Vision
+                            Influencing Society through Christ <br><br>
+
+                            <b>VISION:</b><br>
+
+                            Vision of ICGC (Acts 2:42)
+                            To establish the house of God through the development of Model New Testament Christians and
+                            churches.
+
+                        </p>
+                        <p><a href="contact.php#getInTouch" class="btn btn-white btn-outline-white">Connect With us</a>
+                        </p>
                     </div>
                 </div>
             </div>

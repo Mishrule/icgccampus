@@ -15,8 +15,7 @@
                 <div class="row slider-text align-items-center justify-content-center">
                     <div class="col-md-8 text-center col-sm-12 element-animate">
                         <h1>Messages</h1>
-                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi unde impedit,
-                            necessitatibus, soluta sit quam minima expedita atque corrupti reiciendis.</p>
+                        <p class="mb-5"></p>
                         <p><a href="#" class="btn btn-white btn-outline-white">Support Our Ministries</a></p>
                     </div>
                 </div>

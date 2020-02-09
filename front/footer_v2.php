@@ -4,9 +4,28 @@
                 <div class="container">
                     <div class="row mb-5">
                         <div class="col-md-4 mb-5">
-                            <h3>Inward Church</h3>
-                            <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus et dolor
-                                blanditiis consequuntur ex voluptates perspiciatis omnis unde minima expedita.</p>
+                            <h3>ICGC | UEW-K</h3>
+                            <p class="mb-5">
+                              <b>PHILOSOPHY:</b><br>
+                                Practical Christianity
+                                Human Dignity
+                                Excellence  <br><br>
+
+                               <b>MISSION STATEMENT
+                                MISSION:</b><br>
+
+                                Raising Leaders
+                                Shaping Vision
+                                Influencing Society through Christ <br><br>
+
+                                <b>VISION:</b><br> 
+
+                                Vision of ICGC (Acts 2:42)
+                                To establish the house of God through the development of Model New Testament Christians and churches.
+
+
+                            </p>
+                               
                             <ul class="list-unstyled footer-link d-flex footer-social">
                                 <li><a href="#" class="p-2"><span class="fa fa-twitter"></span></a></li>
                                 <li><a href="#" class="p-2"><span class="fa fa-facebook"></span></a></li>
@@ -18,19 +37,19 @@
                         <div class="col-md-2 mb-5">
                             <h3>The Church</h3>
                             <ul class="list-unstyled footer-link">
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Organizational Chart</a></li>
-                                <li><a href="#">Events</a></li>
-                                <li><a href="#">Contact</a></li>
+                                <li><a href="about.php">About Us</a></li>
+                                <!--<li><a href="#">Organizational Chart</a></li>-->
+                                <li><a href="events.php">Events</a></li>
+                                <li><a href="contact.php">Contact</a></li>
                             </ul>
                         </div>
                         <div class="col-md-2 mb-5">
                             <h3>Messages</h3>
                             <ul class="list-unstyled footer-link">
-                                <li><a href="#">Audio Sermons</a></li>
-                                <li><a href="#">Past Messages</a></li>
-                                <li><a href="#">Bibe Reading</a></li>
-                                <li><a href="#">End Time Prophecies</a></li>
+                                <li><a href="ministries.php">Audio Sermons</a></li>
+                                <li><a href="ministries.php">Past Messages</a></li>
+                                <li><a href="ministries.php">Bibe Reading</a></li>
+                                <li><a href="ministries.php">End Time Prophecies</a></li>
                             </ul>
                         </div>
                         <div class="col-md-4 mb-5">
@@ -38,22 +57,23 @@
                             <ul class="list-unstyled footer-link">
                                 <li class="d-block">
                                     <span class="d-block">Address:</span>
-                                    <span class="text-white">34 Street Name, City Name Here, United States</span></li>
-                                <li class="d-block"><span class="d-block">Telephone:</span><span class="text-white">+1 242 4942
-                                        290</span></li>
+                                    <span class="text-white">Inside University of Education Kumasi | Graduate Lecture room 2</span></li>
+                                <li class="d-block"><span class="d-block">Telephone:</span><span class="text-white">(+233) 55 384 2469</span></li>
                                 <li class="d-block"><span class="d-block">Email:</span><span
                                         class="text-white">info@yourdomain.com</span></li>
+                                <li class="d-block"><span class="d-block">Meeting Days:</span><span
+                                        class="text-white"><span style="color:red;">Sunday:</span> 9:00am - 11:00am<br><span style="color:red;">Wednesday: </span> Bible Studies.<br><span style="color:red;">Friday:</span> Prayer Meetings </></li>
                             </ul>
                         </div>
 
                     </div>
-                    <div class="row">
+                   <!-- <div class="row">
                         <div class="col-12 text-md-left text-left">
                             <p>
                                <br> Demo
                                 Images Unsplash</p>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </footer>
     ';

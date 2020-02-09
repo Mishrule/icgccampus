@@ -1,5 +1,6 @@
-<?php
-    <header class="header">
+<?php 
+    echo '
+        <header class="header">
         <nav class="navbar">
           <!-- Search Box-->
           <div class="search-box">
@@ -82,4 +83,5 @@
           </div>
         </nav>
       </header>
+    ';
 ?>

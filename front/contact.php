@@ -15,9 +15,10 @@
                 <div class="row slider-text align-items-center justify-content-center">
                     <div class="col-md-8 text-center col-sm-12 element-animate">
                         <h1>Contact Us</h1>
-                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi unde impedit,
-                            necessitatibus, soluta sit quam minima expedita atque corrupti reiciendis.</p>
-                        <p><a href="#" class="btn btn-white btn-outline-white">Connect With us</a></p>
+                        <p class="mb-5">
+                            <h3 style="color:cornsilk"><b>INTERNATIONAL CENTRAL GOSPEL CHURCH<br>CAMPUS CHURCH UEW-K CHAPTER</b></h3>
+                        </p>
+                        <p><a href="#getInTouch" class="btn btn-white btn-outline-white">Connect With us</a></p>
                     </div>
                 </div>
             </div>
@@ -27,7 +28,7 @@
     <!-- END slider -->
 
 
-    <section class="section element-animate">
+    <section class="section element-animate" id="getInTouch">
         <div class="container">
             <div class="row mb-5 justify-content-center">
                 <div class="col-md-12">
@@ -147,7 +148,7 @@
     </section>
 
     <!-- Footer -->
-    <?php require_once('links_v2.php') ?>
+    <?php require_once('footer_v2.php') ?>
     <!-- END footer -->
 
     <!-- loader -->

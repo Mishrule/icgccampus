@@ -1,3 +1,35 @@
+<?php
+include('php_script/databaseConfig.php');
+include('php_script/passwordScript.php');
+session_start();
+$error = '';
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $username = mysqli_real_escape_string($conn, $_POST['loginUsername']);
+  $myPassword = mysqli_real_escape_string($conn, $_POST['loginPassword']);
+
+  $encPassword = encryptIt($myPassword);
+
+  $sql = "SELECT username FROM users WHERE username='$username' AND pass_word='$encPassword'";
+  $result = mysqli_query($conn, $sql);
+
+  $row = mysqli_fetch_array($result);
+  $count = mysqli_num_rows($result);
+
+  if ($count == 1) {
+    $_SESSION['login_user'] = $username;
+    header("Location:dashboard.php");
+  } else {
+    $error = '<div class=" alert alert - danger alert - dismissible fade show " role=" alert ">
+                  <strong>Your username or Password is invalid</strong>
+                  <button type=" button " class=" close "  data-dismiss=" alert " aria-label=" Close ">
+                    <span aria-hidden=" true ">&times;</span>
+                  </button>
+                </div>';
+  }
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -20,7 +52,7 @@
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="css/custom.css">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="img/fav.png">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -35,9 +67,13 @@
               <div class="info d-flex align-items-center">
                 <div class="content">
                   <div class="logo">
-                    <h1>Dashboard</h1>
+                    <!--<h1>Dashboard</h1>-->
+                    <img src="img/icgc.png" alt="ICGC Logo" style="width:100%">
                   </div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                  <div align="center">
+                    <marquee direction="up"><h1>INTERNATIONAL <br />CENTRAL GOSPEL <br />CHURCH  <br />CAMPUS CHURCH (UEW-K)</h1></marquee>
+                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -45,27 +81,18 @@
             <div class="col-lg-6 bg-white">
               <div class="form d-flex align-items-center">
                 <div class="content">
-                  <form class="form-validate">
+                  <?php echo $error; ?>
+                  <form method="post" class="form-validate">
                     <div class="form-group">
-                      <input id="register-username" type="text" name="registerUsername" required data-msg="Please enter your username" class="input-material">
-                      <label for="register-username" class="label-material">User Name</label>
-                    </div>
-                    <div class="form-group">
-                      <input id="register-email" type="email" name="registerEmail" required data-msg="Please enter a valid email address" class="input-material">
-                      <label for="register-email" class="label-material">Email Address      </label>
+                      <input id="loginUsername" type="text" name="loginUsername" required data-msg="Please enter your username" class="input-material">
+                      <label for="loginUsername" class="label-material">User Name</label>
                     </div>
                     <div class="form-group">
-                      <input id="register-password" type="password" name="registerPassword" required data-msg="Please enter your password" class="input-material">
-                      <label for="register-password" class="label-material">password        </label>
-                    </div>
-                    <div class="form-group terms-conditions">
-                      <input id="register-agree" name="registerAgree" type="checkbox" required value="1" data-msg="Your agreement is required" class="checkbox-template">
-                      <label for="register-agree">Agree the terms and policy</label>
-                    </div>
-                    <div class="form-group">
-                      <button id="regidter" type="submit" name="registerSubmit" class="btn btn-primary">Register</button>
-                    </div>
-                  </form><small>Already have an account? </small><a href="login.html" class="signup">Login</a>
+                      <input id="loginPassword" type="password" name="loginPassword" required data-msg="Please enter your password" class="input-material">
+                      <label for="loginPassword" class="label-material">Password</label>
+                    </div><button type="submit" id="send" name="send" class="btn btn-primary">Login</button>
+                    <!-- This should be submit button but I replaced it with <a> for demo purposes-->
+                  </form><!--<a href="#" class="forgot-pass">Forgot Password?</a><br><small>Do not have an account? </small><a href="register.html" class="signup">Signup</a>-->
                 </div>
               </div>
             </div>
@@ -73,7 +100,7 @@
         </div>
       </div>
       <div class="copyrights text-center">
-        <p>Design by <a href="https://bootstrapious.com" class="external">Bootstrapious</a>
+        <p>Design by <a href="https://bootstrapious.com/admin-templates" class="external">Bootstrapious</a>
           <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
         </p>
       </div>
