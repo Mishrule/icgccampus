@@ -2,6 +2,8 @@
 // include('php_script/databaseConfig.php');
 // include('php_script/session.php')
   require_once('db.php');
+  require_once('sessions.php');
+  require_once('functions.php');
 ?>
 
 <!DOCTYPE html>
@@ -70,30 +72,18 @@
                                                       $titheSQL = "INSERT INTO tithe VALUES('$tithe_member','$amount','$tithe_Month','$tithe_year','$dateTime')";
                                                       $titheResult = mysqli_query($conn, $titheSQL);
                                                       if($titheResult){
-                                                        echo '
-                                                          <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                                                            <strong>&cent;' . $amount . ' Paid to  ' . $tithe_member . ' Successfully </strong>
-                                                            <button type="button" class="close"  data-dismiss="alert" aria-label="Close">
-                                                              <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                          </div>
-                                                        ';
+                                                        $_SESSION['Message']= $amount." Paid to  ". $tithe_member ." Records";
+                                                        Redirect_to("tithe.php");
                                                       }else{
-                                                        echo '
-                                                          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                                            <strong>Payment to '.$tithe_member.' Failed</strong>
-                                                            <button type="button" class="close"  data-dismiss="alert" aria-label="Close">
-                                                              <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                          </div>
-                                                        ';
+                                                        $_SESSION['Message']= "Payment Failed";
+                                                        Redirect_to("tithe.php");
                                                       }
 
                                                     }else{
-                                                      echo '';
+                                                      
                                                     }
                                                   ?>
-
+                                                    <?php echo Message(); ?>
                                                     <p>
                                                         <!--<img src="#" class="img-thumbnail" alt="Image Here"></p>-->
                                                         <div id="titheImage"></div>

@@ -1,5 +1,7 @@
 <?php 
     require_once('db.php');
+    require_once('sessions.php');
+    require_once('functions.php');
 
 $msg = '';
 date_default_timezone_set("Africa/Accra");
@@ -25,19 +27,24 @@ if (isset($_POST['registerBtn'])) {
   move_uploaded_file($_FILES["imageFile"]["tmp_name"], $target);
   if ($registerResult) {
 
-    $msg = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    /*$msg = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                   <strong>You have successfully registered ' . $fullname . ' </strong>
                   <button type="button" class="close"  data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
-                </div>';
+                </div>';*/
+        $_SESSION['Message']= "You have successfully registered ". $fullname ." Records";
+        Redirect_to("register_members.php");
   } else {
-    $msg = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                  <strong>Registration Failed try again...</strong>
-                  <button type="button" class="close"  data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>';
+    // $msg = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    //               <strong>Registration Failed try again...</strong>
+    //               <button type="button" class="close"  data-dismiss="alert" aria-label="Close">
+    //                 <span aria-hidden="true">&times;</span>
+    //               </button>
+    //             </div>';
+
+    $_SESSION['Message']="Registration Failed try again...";
+        Redirect_to("register_members.php");
   }
 
 
@@ -90,7 +97,9 @@ if (isset($_POST['registerBtn'])) {
                                     <div class="card-header d-flex align-items-center">
                                         <h3 class="h4">Register Members</h3>
                                     </div>
-                                    <div align="center"><?php echo $msg; ?></div>
+                                    <div align="center"><?php //echo $msg;
+                                        echo Message();
+                                    ?></div>
                                     <div class="card-body">
                                         <div class="row">
                                             <form method="POST" action="<?php $_PHP_SELF; ?>"
@@ -270,10 +279,10 @@ if (isset($_POST['registerBtn'])) {
                                             <div class="form-group-material">
                                                 <input id="searchText" type="text" name="searchText" required
                                                     class="input-material">
-                                                <label for="search" class="label-material"><i
+                                                <label for="searchText" class="label-material"><i
                                                         class="fa fa-search"></i>Search Members</label>
                                                 <div><br />
-                                                    <button type="submit" id="searchBtn" name="searchBtn"
+                                                    <button type="submit" id="searchBtn" name="searchBtns"
                                                         class="btn btn-info btn-sm"><i
                                                             class="fa fa-search"></i>Search</button>
                                                 </div>
@@ -281,25 +290,27 @@ if (isset($_POST['registerBtn'])) {
                                         </form>
                                         <div class="table-responsive">
                                             <?php 
-                                                if(isset($_POST['searchBtn'])){
-                                                    $search = mysqli_real_escape_string($conn, $_POST['searchBtn']);
+                                                if(isset($_POST['searchBtns'])){
+                                                    $search = mysqli_real_escape_string($conn, $_POST['searchText']);
                                                     $searchSQL = "SELECT * FROM icgcmembers WHERE member_id='$search' OR fullname = '$search' OR contact='$search'";
-                                                    
+                                                    // print_r($searchSQL);
                                                     $searchResult = mysqli_query($conn, $searchSQL);
                                                     if(mysqli_num_rows($searchResult)>0){
                                                         while($searchRow = mysqli_fetch_array($searchResult)){
                                                             echo '
                                                                 <div align="center">
-                                                                    <img class="img-thumbnail" src="img/'.$searchRow['image'].'" width="200px" height="200px;" /><br>
+                                                                    <img class="img-thumbnail" src="img/'.$searchRow['image'].'" width="200px" height="200px;" /><br><hr>
                                                                     <h1>'.$searchRow['fullname'].'</h1><hr>
                                                                     <h2>'.$searchRow['member_id'].'</h2><hr>
-                                                                      <h3>'.$searchRow['contact'].'</h3><hr>
-                                                                       <h3>'.$searchRow['hall'].'</h3><hr>
-                                                                        <h3>'.$searchRow['email'].'</h3><hr>
-                                                                         <h3>'.$searchRow['date_time'].'</h3><hr>
+                                                                    <h3>'.$searchRow['contact'].'</h3><hr>
+                                                                    <h3>'.$searchRow['hall'].'</h3><hr>
+                                                                    <h3>'.$searchRow['email'].'</h3><hr>
+                                                                    <h3>'.$searchRow['date_time'].'</h3><hr>
                                                                 </div>
                                                             ';
+                                                            
                                                         }
+                                                        
                                                     }else{
                                                         echo '
                                                             <hr>
