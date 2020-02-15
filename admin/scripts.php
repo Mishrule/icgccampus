@@ -9,6 +9,7 @@ $dateTime = strftime("%B-%d-%Y %H:%M:%S", $currentTime);
     if(isset($_POST['attend'])){
         $attendance_view = $_POST['attend'];
         $viewSQL = "SELECT * FROM attendance WHERE attendance_date = '$attendance_view'";
+        print_r($viewSQL);
         
         $viewResult = mysqli_query($conn, $viewSQL);
         while($viewRow = mysqli_fetch_array($viewResult)){
@@ -93,6 +94,13 @@ if(isset($_POST['showChange'])){
           echo $showMsg;                                 
 }
 
+
+?>
+
+
+
+<?php 
+    
 //======================================================================================================================
 /** 
  *                                          OFFERING PAGE
@@ -237,8 +245,12 @@ if (isset($_POST['offeringLimit'])) {
 
 
 }
+?>
 
 
+
+<?php
+    
 //===================================================================================================================
 /**
  * 
@@ -377,6 +389,299 @@ if (isset($_POST['pledgeindividual'])) {
 
 }
 
+?>
 
+
+
+
+
+<?php
+    
 //====================================================================================================================
+/**
+ *                                          VISITOR'S PAGE
+ * 
+ *====================================================================================================================*/
+//=======================================|VISITORS PAGE
+if (isset($_POST['visitorbtn'])) {
+    $male = mysqli_real_escape_string($conn, $_POST['male']);
+    $contact = mysqli_real_escape_string($conn, $_POST['contact']);
+    $residence = mysqli_real_escape_string($conn, $_POST['residence']);
+    
+
+
+
+
+    $visitor_Sql = "INSERT INTO visitor VALUES('','$male','$contact','$residence','$dateTime')";
+    $visitor_result = mysqli_query($conn, $visitor_Sql);
+
+    if ($visitor_result) {
+        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>VISITORS, '.$male.' IS SUCCESSFULLY LOG </strong>
+                  <button type="button" class="close"  data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>';
+    } else {
+        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Ooops! Failed try again...</strong>
+                  <button type="button" class="close"  data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>';
+    }
+
+}
+
+//================================ REGISTERED MEMBER 
+$view_display_visitor = '';
+$Tdisplay = '';
+if (isset($_POST['limits'])) {
+    $limits = mysqli_real_escape_string($conn, $_POST['limits']);
+
+    $visitor_sql = "SELECT * FROM visitor  ORDER BY visitor_date DESC LIMIT $limits";
+        print_r($visitor_sql);
+
+    $visitor_result = mysqli_query($conn, $visitor_sql);
+    $view_display_visitor .= '
+            <table class="table table-responsive table-striped">
+                <thead>
+                <th>#</th>
+                <th>NAME</th>
+                <th>CONTACT</th>
+                <th>RESIDENCE</th>
+                <th>DATE</th>
+                
+                </thead>
+                <tbody>
+        ';
+    $count_visitors = 1;
+    if (mysqli_num_rows($visitor_result) > 0) {
+        while ($row_visitor = mysqli_fetch_array($visitor_result)) {
+            $view_display_visitor .= '
+                <tr>
+                    <td>' . $count_visitors++ . '</td>
+                    <td>
+                        ' . $row_visitor['visitor_name'] . '                    
+                    </td>
+                    <td>
+                        ' . $row_visitor['visitor_contact'] . '
+                    </td>
+                    <td>
+                        ' . $row_visitor['visitor_residence'] . '
+                    </td>
+                    <td>
+                        ' . $row_visitor['visitor_date'] . '
+                    </td>
+                    
+                </tr>
+            ';
+            
+        }
+    } else {
+        $view_display_visitor .= '<td colspan="5"><marquee>NO Records Yet</marquee></td>';
+    }
+    $view_display_visitor .= '<tr><td colspan = "5">
+    <button type="button" style="float:right" class="btn btn-danger value="print">Print</button></td></tr>
+    </tbody></table>';
+    echo $view_display_visitor;
+
+}
+?>
+
+
+
+
+<?php
+    
+//========================================================================================================================
+//====================================================================================================================
+/**
+ *                                          EVENT'S PAGE
+ * 
+ *====================================================================================================================*/
+//=======================================|EVENT'S PAGE
+if (isset($_POST['eventbtn'])) {
+
+
+    $topic = mysqli_real_escape_string($conn, $_POST['topic']);
+    $eventDesc = mysqli_real_escape_string($conn, $_POST['eventDesc']);
+   
+    $event_Sql = "INSERT INTO events VALUES('','$topic','$eventDesc','$dateTime')";
+    $event_result = mysqli_query($conn, $event_Sql);
+
+    if ($event_result) {
+        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>EVENT, '.$topic.', IS SUCCESSFULLY LOG </strong>
+                  <button type="button" class="close"  data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>';
+    } else {
+        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Ooops! Failed try again...</strong>
+                  <button type="button" class="close"  data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+             </div>';
+    }
+
+}
+
+//================================ VIEW EVENTS 
+$view_display_event = '';
+// $Tdisplay = '';
+if (isset($_POST['limits_event'])) {
+    $limits_event = mysqli_real_escape_string($conn, $_POST['limits_event']);
+
+    $event_sql = "SELECT * FROM events  ORDER BY event_date DESC LIMIT $limits_event";
+
+    $event_result = mysqli_query($conn, $event_sql);
+    $view_display_event .= '
+            <table class="table table-responsive table-striped">
+                <thead>
+                <th>#</th>
+                <th>TOPIC</th>
+                <th>Description</th>
+                <th>DATE</th>
+                </thead>
+                <tbody>
+        ';
+    $count_events = 1;
+    if (mysqli_num_rows($event_result) > 0) {
+        while ($row_event = mysqli_fetch_array($event_result)) {
+            $view_display_event .= '
+                <tr>
+                    <td>' . $count_events++ . '</td>
+                    <td>
+                        ' . $row_event['event_topic'] . '                    
+                    </td>
+                    <td>
+                        ' . $row_event['event_info'] . '
+                    </td>
+                    <td>
+                        ' . $row_event['event_date'] . '
+                    </td>
+                    
+                </tr>
+            ';
+            
+        }
+    } else {
+        $view_display_event .= '<td colspan="5"><marquee>NO Records Yet</marquee></td>';
+    }
+    $view_display_event .= '<tr><td colspan = "5">
+    <button type="button" style="float:right" class="btn btn-danger value="print">Print</button></td></tr>
+    </tbody></table>';
+    echo $view_display_event;
+
+
+
+}
+
+//========================================================================================================================
+?>
+
+
+
+<?php
+    //====================================================================================================================
+/**
+ *                                          PRAYER REQUEST PAGE
+ * 
+ *====================================================================================================================*/
+//=======================================|PRAYER PAGE
+/*if (isset($_POST['eventbtn'])) {
+
+
+    $topic = mysqli_real_escape_string($conn, $_POST['topic']);
+    $eventDesc = mysqli_real_escape_string($conn, $_POST['eventDesc']);
+   
+    $event_Sql = "INSERT INTO events VALUES('','$topic','$eventDesc','$dateTime')";
+    $event_result = mysqli_query($conn, $event_Sql);
+
+    if ($event_result) {
+        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>EVENT, '.$topic.', IS SUCCESSFULLY LOG </strong>
+                  <button type="button" class="close"  data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>';
+    } else {
+        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Ooops! Failed try again...</strong>
+                  <button type="button" class="close"  data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+             </div>';
+    }
+
+}*/
+
+//================================ VIEW PRAYERS 
+$view_display_prayer = '';
+// $Tdisplay = '';
+
+
+if (isset($_POST['prayerStatus'])) {
+    $prayerStatus = mysqli_real_escape_string($conn, $_POST['prayerStatus']);
+    $prayerlimit = intval(mysqli_real_escape_string($conn, $_POST['prayerlimit']));
+    print_r($prayerStatus);
+
+
+    $prayer_sql = "SELECT * FROM prayer_request WHERE status_='$prayerStatus'  ";
+    print_r($prayer_sql);
+
+    $prayer_result = mysqli_query($conn, $prayer_sql);
+    $view_display_prayer .= '
+            <table class="table table-responsive table-striped">
+                <thead>
+                <th>#</th>
+                <th>NAME</th>
+                <th>PRAYER POINT</th>
+                <th>PRAYER DATE</th>
+                <th>STATUS</th>
+                <th>PRAYER STAT</th>
+
+                </thead>
+                <tbody>
+        ';
+    $count_prayer = 1;
+    if (mysqli_num_rows($prayer_result) > 0) {
+        while ($row_prayer = mysqli_fetch_array($prayer_result)) {
+            $view_display_prayer .= '
+                <tr>
+                    <td>' . $count_prayer++ . '</td>
+                    <td>
+                        ' . $row_prayer['name'] . '                    
+                    </td>
+                    <td>
+                        ' . $row_prayer['prayer_point'] . '
+                    </td>
+                    <td>
+                        ' . $row_prayer['prayer_date'] . '
+                    </td>
+                    <td>
+                        ' . $row_prayer['status_'] . '
+                    </td>
+                    <td>
+                        <button class="btn btn-primary btn-sm edit" id='.$row_prayer['pid'].' name='.$row_prayer['pid'].'>Change</button>
+                    </td>
+                    
+                </tr>
+            ';
+            
+        }
+    } else {
+        $view_display_prayer .= '<td colspan="6"><marquee>NO Records Yet</marquee></td>';
+    }
+    $view_display_prayer .= '<tr><td colspan = "6">
+    <button type="button" style="float:right" class="btn btn-danger value="print">Print</button></td></tr>
+    </tbody></table>';
+    echo $view_display_prayer;
+
+
+    
+}
+//===================================================================================================================
 ?>

@@ -6,7 +6,7 @@
     $dbName = 'icgccampus';
     $conn = mysqli_connect($host, $username, $password, $dbName);
     if($conn){
-        
+        // print_r($conn);
     }else{
         echo mysqli_error($conn).$connectionError;
     }

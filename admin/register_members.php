@@ -226,6 +226,7 @@ if (isset($_POST['registerBtn'])) {
                                                     <?php 
                                                         
                                                         $registeredMembersSQL = "SELECT * FROM icgcmembers ORDER BY date_time DESC LIMIT 10";
+                                                        // print_r( $registeredMembersSQL);
                                                         $registeredExecution = mysqli_query($conn, $registeredMembersSQL);
                                                         $registerCount = 1;
                                                         if(mysqli_num_rows($registeredExecution)>0){
@@ -293,6 +294,7 @@ if (isset($_POST['registerBtn'])) {
                                                 if(isset($_POST['searchBtns'])){
                                                     $search = mysqli_real_escape_string($conn, $_POST['searchText']);
                                                     $searchSQL = "SELECT * FROM icgcmembers WHERE member_id='$search' OR fullname = '$search' OR contact='$search'";
+                                                    print_r($searchSQL);
                                                     // print_r($searchSQL);
                                                     $searchResult = mysqli_query($conn, $searchSQL);
                                                     if(mysqli_num_rows($searchResult)>0){

@@ -16,14 +16,14 @@
                 <!-- Page Header-->
                 <header class="page-header">
                     <div class="container-fluid">
-                        <h2 class="no-margin-bottom">Offering Page</h2>
+                        <h2 class="no-margin-bottom">Events Page</h2>
                     </div>
                 </header>
                 <!-- Breadcrumb-->
                 <div class="breadcrumb-holder container-fluid">
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                        <li class="breadcrumb-item active">Visitors Page </li>
+                        <li class="breadcrumb-item active">Events Page </li>
                     </ul>
                 </div>
                 <section class="tables">
@@ -44,11 +44,11 @@
                                         </div>
                                     </div>
                                     <div class="card-header d-flex align-items-center">
-                                        <h3 class="h4">Visitors Registrations</h3>
+                                        <h3 class="h4">EVENTS</h3>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
-
+                                            <div align="center" id="showEvent"></div>
                                             <table class="table">
                                                 <thead>
 
@@ -59,38 +59,38 @@
 
                                                     </tr>
                                                     <tr>
-                                                        <td><label for="male_visitor">Name</label></td>
-                                                        <td><input type="text" name="male_visitor" id="male_visitor"
-                                                                placeholder="eg. Frank Arthur" class="form-control">
+                                                        <td><label for="eventTopic">Topic</label></td>
+                                                        <td><input type="text" name="eventTopic" id="eventTopic"
+                                                                placeholder="eg. Tour" class="form-control">
                                                         </td>
                                                     </tr>
                                                     <tr>
 
                                                     </tr>
                                                     <tr>
-                                                        <td><label for="visitor_contact">Contact</label></td>
-                                                        <td><input type="text" name="visitor_contact"
-                                                                id="visitor_contact" placeholder="eg 0245118878"
-                                                                class="form-control"></td>
+                                                        <td><label for="eventDesc">Description</label></td>
+                                                        <td>
+
+                                                            <textarea cols='7' class="form-control" rows='6'
+                                                                name='eventDesc'
+                                                                placeholder="There is going to be an upcoming Tour"
+                                                                id='eventDesc'></textarea></td>
                                                     </tr>
                                                     <tr>
 
                                                     </tr>
                                                     <tr>
-                                                        <td><label for="visitor_residence">Residence</label></td>
-                                                        <td><input type="text" name="visitor_residence"
-                                                                id="visitor_residence" placeholder="eg. Maa Joyce"
-                                                                class="form-control"></td>
+
                                                     </tr>
                                                     <tr>
 
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2"><button type="text" style="float:right"
-                                                                name="register_visitor" id="register_visitor"
-                                                                class="btn btn-outline-primary"
-                                                                value="visitor_button"><i class="fa fa-pencil"></i>
-                                                                Register</button></td>
+                                                                name="eventBtn" id="eventBtn"
+                                                                class="btn btn-outline-primary" value="eventBtn"><i
+                                                                    class="fa fa-pencil"></i>
+                                                                Create Events</button></td>
                                                     </tr>
                                                     <tr>
 
@@ -115,7 +115,7 @@
                                         </div>
                                     </div>
                                     <div class="card-header d-flex align-items-center">
-                                        <h3 class="h4">Registered Members</h3>
+                                        <h3 class="h4">View Events</h3>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -127,10 +127,10 @@
                                                         <th></th>
                                                         <th></th>
                                                         <th>
-                                                            <label for="visitor limit">Limit</label>
+                                                            <label for="event_limit">Limit</label>
                                                             <select style="width:30%"
                                                                 class="form-group-material custom-select my-1 mr-sm-2"
-                                                                id="visitor_limit" name="visitor_limit">
+                                                                id="event_limit" name="event_limit">
 
                                                                 <option value="0">Select...</option>
                                                                 <option value="5">5</option>
@@ -146,123 +146,12 @@
 
                                                 </tbody>
                                             </table>
-                                            <div id="visitorDisplay"></div>
+                                            <div id="eventDisplay"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!--  <div class="col-lg-6">
-                  <div class="card">
-                    <div class="card-close">
-                      <div class="dropdown">
-                        <button type="button" id="closeCard3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
-                        <div aria-labelledby="closeCard3" class="dropdown-menu dropdown-menu-right has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a><a href="#" class="dropdown-item edit"> <i class="fa fa-gear"></i>Edit</a></div>
-                      </div>
-                    </div>
-                    <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">Search for Member</h3>
-                    </div>
-                    <div class="card-body">
-                      <div class="table-responsive">                       
-                        <table class="table table-striped table-hover">
-                          <thead>
-                            <tr>
-                              <th>#</th>
-                              <th>First Name</th>
-                              <th>Last Name</th>
-                              <th>Username</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <th scope="row">1</th>
-                              <td>Mark</td>
-                              <td>Otto</td>
-                              <td>@mdo</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">2</th>
-                              <td>Jacob</td>
-                              <td>Thornton</td>
-                              <td>@fat</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">3</th>
-                              <td>Larry</td>
-                              <td>the Bird</td>
-                              <td>@twitter                            </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="card">
-                    <div class="card-close">
-                      <div class="dropdown">
-                        <button type="button" id="closeCard4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
-                        <div aria-labelledby="closeCard4" class="dropdown-menu dropdown-menu-right has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a><a href="#" class="dropdown-item edit"> <i class="fa fa-gear"></i>Edit</a></div>
-                      </div>
-                    </div>
-                    <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">Alumni Members</h3>
-                    </div>
-                    <div class="card-body">
-                      <div class="table-responsive">   
-                        <table class="table table-striped table-sm">
-                          <thead>
-                            <tr>
-                              <th>#</th>
-                              <th>First Name</th>
-                              <th>Last Name</th>
-                              <th>Username</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <th scope="row">1</th>
-                              <td>Mark</td>
-                              <td>Otto</td>
-                              <td>@mdo</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">2</th>
-                              <td>Jacob</td>
-                              <td>Thornton</td>
-                              <td>@fat</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">3</th>
-                              <td>Larry</td>
-                              <td>the Bird</td>
-                              <td>@twitter      </td>
-                            </tr>
-                            <tr>
-                              <th scope="row">4</th>
-                              <td>Mark</td>
-                              <td>Otto</td>
-                              <td>@mdo</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">5</th>
-                              <td>Jacob</td>
-                              <td>Thornton</td>
-                              <td>@fat</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">6</th>
-                              <td>Larry</td>
-                              <td>the Bird</td>
-                              <td>@twitter      </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>-->
+
                         </div>
                     </div>
                 </section>
@@ -276,3 +165,57 @@
 </body>
 
 </html>
+
+
+
+<script>
+$(document).ready(function() {
+    /* EVENT Registrations page */
+    $('#eventBtn').click(function() {
+        let topic = $('#eventTopic').val();
+        let eventDesc = $('#eventDesc').val();
+        let eventbtn = $('#eventBtn').val();
+
+        if (topic === '') {
+
+            $('#showEvent').html("<p align='center' style='color:red;'>SORRY TOPIC CAN'T BE EMPTY");
+        } else if (eventDesc === '') {
+
+            $('#showEvent').html(
+                "<p align='center' style='color:red;'>SORRY DESCRIPTIONS CAN'T BE EMPTY");
+        } else {
+            $.ajax({
+                url: 'scripts.php',
+                method: 'POST',
+                data: {
+                    topic,
+                    eventDesc,
+                    eventbtn
+                },
+                success: function(data) {
+                    $('#showEvent').html(data);
+                    $('#eventTopic').val('');
+                    $('#eventDesc').val('');
+
+                }
+            });
+        }
+    });
+
+    $('#event_limit').change(function() {
+        let limits_event = $('#event_limit').val();
+        $.ajax({
+            url: 'scripts.php',
+            method: 'POST',
+            data: {
+                limits_event
+            },
+            success: function(data) {
+                $('#eventDisplay').html(data);
+
+            }
+        });
+    });
+
+})
+</script>

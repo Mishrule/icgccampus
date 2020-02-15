@@ -271,6 +271,8 @@
                                                                   $view_records_limit = mysqli_real_escape_string($conn, $_POST['view_records_limit']);
                                                                   
                                                                   $viewTitheSQL = "SELECT * FROM tithe WHERE payment_month='$view_records_month' AND payment_year='$view_records_year' ORDER BY payment_date DESC LIMIT $view_records_limit";
+
+                                                                //   echo(print_r($viewTitheSQL));
                                                                   
                                                                   $viewTitheResult = mysqli_query($conn, $viewTitheSQL);
                                                                   $viewCount=1;
